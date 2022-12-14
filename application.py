@@ -1,10 +1,9 @@
 import os
 import logging
-from logging.handlers import RotatingFileHandler
 
 from decouple import config
 from flask import Flask
-from flask_cors import  CORS,cross_origin
+from flask_cors import CORS,cross_origin
 from dotenv import  load_dotenv
 
 # logger = logging.getLogger(__name__)
@@ -16,7 +15,7 @@ from dotenv import  load_dotenv
 application = Flask(__name__)
 #application.logger.addHandler(handler)
 load_dotenv()
-logging.basicConfig(filename=os.environ['logpath'], level=logging.DEBUG,format='%(asctime)s %(levelname)s %(message)s')
+logging.basicConfig(filename=config('LOGPATH','records.log'), level=logging.DEBUG,format='%(asctime)s %(levelname)s %(message)s')
 
 @application.route('/', methods = ['GET','POST'])
 @cross_origin()
