@@ -15,20 +15,20 @@ from dotenv import  load_dotenv
 
 application = Flask(__name__)
 #application.logger.addHandler(handler)
-
-logging.basicConfig(filename='record.log', level=logging.DEBUG,format='%(asctime)s %(levelname)s %(message)s')
+load_dotenv()
+logging.basicConfig(filename=os.environ['logpath'], level=logging.DEBUG,format='%(asctime)s %(levelname)s %(message)s')
 
 @application.route('/', methods = ['GET','POST'])
 @cross_origin()
 def home():
     try:
-        load_dotenv()
-        application.logger.info('picking config using dotenv...')
-        return os.environ['DOTE']
+
+        application.logger.info('picking config using decouple...')
+        return config('DECOUP','nodata decoupe')
     except:
         try:
-            application.logger.info('picking config using decouple...')
-            return config('DECOUP','nodata decoupe')
+            application.logger.info('picking config using dotenv...')
+            return os.environ['DOTE']
         except Exception as e:
             application.logger.error('Error with env'+e)
             # logger.error('error with env'+e)
